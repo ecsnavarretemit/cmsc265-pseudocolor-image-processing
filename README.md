@@ -4,7 +4,6 @@
 
 1. Python 3.6.x or later
 2. OpenCV 3.x
-3. FFmpeg 3.x
 
 _Note: Make sure that Python is compiled with framework enabled when installing on macOS systems._
 
@@ -31,7 +30,9 @@ Follow these steps to install the setup the application:
 
 ## Running the Program
 
-You can run the python scripts by invoking `python run.py` or `./run.py`.
+You can run the python scripts by invoking `python <script>.py` or `./<script>.py`.
+For getting the output using the OpenCV color maps, run `python color-map.py` or `./color-map.py`.
+For getting the output using the RGB transformation, run `python rgb-transformation.py` or `./rgb-transformation.py`.
 
 ## License
 

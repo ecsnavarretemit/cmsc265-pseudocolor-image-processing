@@ -112,7 +112,7 @@ sarai-maps-api.wsgi
 
 # sample images
 assets/*
-!assets/images-small
+!assets/img
 
 # output images
 out
