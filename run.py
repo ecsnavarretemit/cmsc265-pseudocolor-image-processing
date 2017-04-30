@@ -23,21 +23,16 @@ def color_map():
   # find all images in the directory
   images = glob.glob(f"{image_dir_path}/*.{ext}")
 
-  # create a dictionary of colormaps
-  color_maps = {
-    'autumn': cv2.COLORMAP_AUTUMN,
-    'bone': cv2.COLORMAP_BONE,
-    'jet': cv2.COLORMAP_JET,
-    'winter': cv2.COLORMAP_WINTER,
-    'rainbow': cv2.COLORMAP_RAINBOW,
-    'ocean': cv2.COLORMAP_OCEAN,
-    'summer': cv2.COLORMAP_SUMMER,
-    'spring': cv2.COLORMAP_SPRING,
-    'cool': cv2.COLORMAP_COOL,
-    'hsv': cv2.COLORMAP_HSV,
-    'pink': cv2.COLORMAP_PINK,
-    'hot': cv2.COLORMAP_HOT,
-  }
+  # get all colormap flags available in opencv
+  colormap_flag_prefix = 'COLORMAP_'
+  colormap_flags = [i for i in dir(cv2) if i.startswith(colormap_flag_prefix)]
+
+  # assemble the dictionary of color maps
+  colormaps = {}
+  for colormap_flag in colormap_flags:
+    colormap_key = colormap_flag[len(colormap_flag_prefix):].lower()
+
+    colormaps[colormap_key] = getattr(cv2, colormap_flag)
 
   # delete the folder to make sure we are create new files
   if os.path.exists(out_path):
@@ -59,7 +54,7 @@ def color_map():
       os.makedirs(final_out_path)
 
     # apply the colormap to the grayscaled image and write it to the filesystem
-    for color_name, color_val in color_maps.items():
+    for color_name, color_val in colormaps.items():
       im_color = cv2.applyColorMap(im_gray, color_val)
 
       cv2.imwrite(f"{final_out_path}/{color_name}.jpg", im_color)
