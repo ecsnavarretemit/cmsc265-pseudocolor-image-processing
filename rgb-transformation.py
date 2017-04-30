@@ -8,6 +8,7 @@
 
 import os
 import cv2
+import sys
 import glob
 import numpy as np
 from math import pi
@@ -52,11 +53,17 @@ def rgb_color_transformation():
   out_path = os.path.join(os.getcwd(), "out/rgb-color-transformation")
   ext = "jpg"
 
-  print(f"Reading all images from the directory: {image_dir_path}")
-  print(f"Output will be saved in: {out_path}")
-
   # find all images in the directory
   images = glob.glob(f"{image_dir_path}/*.{ext}")
+
+  # exit immediately when there are no images present on the folder
+  num_images = len(images)
+  if num_images == 0:
+    print(f"No images present on the directory: {image_dir_path}")
+    sys.exit(1)
+
+  print(f"Reading all images from the directory: {image_dir_path}")
+  print(f"Output will be saved in: {out_path}")
 
   # delete the folder to make sure we are create new files
   if os.path.exists(out_path):
