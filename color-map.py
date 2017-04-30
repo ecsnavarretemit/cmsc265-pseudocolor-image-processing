@@ -8,6 +8,7 @@
 
 import os
 import cv2
+import sys
 import glob
 from shutil import rmtree
 
@@ -15,9 +16,6 @@ def color_map():
   image_dir_path = os.path.join(os.getcwd(), "assets/img")
   out_path = os.path.join(os.getcwd(), "out/color-map")
   ext = "jpg"
-
-  print(f"Reading all images from the directory: {image_dir_path}")
-  print(f"Output will be saved in: {out_path}")
 
   # find all images in the directory
   images = glob.glob(f"{image_dir_path}/*.{ext}")
@@ -32,6 +30,21 @@ def color_map():
     colormap_key = colormap_flag[len(colormap_flag_prefix):].lower()
 
     colormaps[colormap_key] = getattr(cv2, colormap_flag)
+
+  # exit immediately when there are no detected color maps
+  num_colormap_flags = len(colormap_flags)
+  if num_colormap_flags == 0:
+    print("No color map flags present on OpenCV. This is insane! should have at least one!")
+    sys.exit(1)
+
+  # exit immediately when there are no images present on the folder
+  num_images = len(images)
+  if num_images == 0:
+    print(f"No images present on the directory: {image_dir_path}")
+    sys.exit(1)
+
+  print(f"Reading all images from the directory: {image_dir_path}")
+  print(f"Output will be saved in: {out_path}")
 
   # delete the folder to make sure we are create new files
   if os.path.exists(out_path):
