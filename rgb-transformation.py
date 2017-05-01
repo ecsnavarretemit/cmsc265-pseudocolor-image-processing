@@ -11,16 +11,18 @@ import cv2
 import sys
 import glob
 import numpy as np
-from math import pi
 from shutil import rmtree
 
 class FalseRGB(object):
 
   def __init__(self, image):
-    self.a = 255
-    self.b = 2 * pi / 255
-    self.c = pi / 5
+    # read the file using OpenCV
     self.image = cv2.imread(image, cv2.IMREAD_GRAYSCALE)
+
+    # Define a, b, and c for use in RGB transformation
+    self.a = 255
+    self.b = (2 * np.pi) / 255
+    self.c = np.pi / 5
 
   def r_transform(self):
     im = self.image.copy()
