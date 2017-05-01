@@ -71,6 +71,8 @@ def color_map():
 
       cv2.imwrite(f"{final_out_path}/{color_name}.jpg", im_color)
 
+  print("Done processing images.")
+
 # execute the main function
 if __name__ == "__main__":
   color_map()

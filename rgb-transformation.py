@@ -75,7 +75,7 @@ def rgb_color_transformation():
   if not os.path.exists(out_path):
     os.makedirs(out_path)
 
-  # iterate all found images and colorize them
+  # iterate all found images and colorize them then write to the filesystem
   for image in images:
     basename = os.path.basename(image)
     filename, _ = os.path.splitext(basename)
@@ -83,6 +83,8 @@ def rgb_color_transformation():
     false_rgb = FalseRGB(image)
 
     cv2.imwrite(f"{out_path}/{filename}.jpg", false_rgb.get_rgb_image())
+
+  print("Done processing images.")
 
 # execute the main function
 if __name__ == "__main__":
