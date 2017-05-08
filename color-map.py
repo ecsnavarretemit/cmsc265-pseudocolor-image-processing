@@ -4,7 +4,7 @@
 #
 # Copyright(c) Exequiel Ceasar Navarrete <esnavarrete1@up.edu.ph>
 # Licensed under MIT
-# Version 1.0.0
+# Version 1.0.1
 
 import os
 import cv2
@@ -70,6 +70,8 @@ def color_map():
       im_color = cv2.applyColorMap(im_gray, color_val)
 
       cv2.imwrite(f"{final_out_path}/{color_name}.jpg", im_color)
+
+  print("Done processing images.")
 
 # execute the main function
 if __name__ == "__main__":
