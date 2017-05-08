@@ -4,23 +4,25 @@
 #
 # Copyright(c) Exequiel Ceasar Navarrete <esnavarrete1@up.edu.ph>
 # Licensed under MIT
-# Version 1.0.0
+# Version 1.0.1
 
 import os
 import cv2
 import sys
 import glob
 import numpy as np
-from math import pi
 from shutil import rmtree
 
 class FalseRGB(object):
 
   def __init__(self, image):
-    self.a = 255
-    self.b = 2 * pi / 255
-    self.c = pi / 5
+    # read the file using OpenCV
     self.image = cv2.imread(image, cv2.IMREAD_GRAYSCALE)
+
+    # Define a, b, and c for use in RGB transformation
+    self.a = 255
+    self.b = (2 * np.pi) / 255
+    self.c = np.pi / 5
 
   def r_transform(self):
     im = self.image.copy()
@@ -73,7 +75,7 @@ def rgb_color_transformation():
   if not os.path.exists(out_path):
     os.makedirs(out_path)
 
-  # iterate all found images and colorize them
+  # iterate all found images and colorize them then write to the filesystem
   for image in images:
     basename = os.path.basename(image)
     filename, _ = os.path.splitext(basename)
@@ -81,6 +83,8 @@ def rgb_color_transformation():
     false_rgb = FalseRGB(image)
 
     cv2.imwrite(f"{out_path}/{filename}.jpg", false_rgb.get_rgb_image())
+
+  print("Done processing images.")
 
 # execute the main function
 if __name__ == "__main__":
